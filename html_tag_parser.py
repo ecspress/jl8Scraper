@@ -12,13 +12,10 @@ class Tag:
 
     def add_data(self, data):
         """Stores the text of a tag.
-
         Input:
             text between start and end of a tag.
-
         Output:
             None
-
         Raises:
             None
         """
@@ -26,13 +23,10 @@ class Tag:
 
     def add_attribute(self, attribute_name, attribute_value):
         """Stores the attributes of a tag in a dictionary.
-
         Input:
             AttributeName, AttributeValue
-
         Output:
             None
-
         Raises:
             None
         """
@@ -50,13 +44,10 @@ class HTMLTagParser(HTMLParser):
 
     def parse(self, data):
         """Initializes and resets the parser.
-
         Input:
             data to be parsed
-
         Output:
             None
-
         Raises:
             None
         """
@@ -68,13 +59,10 @@ class HTMLTagParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         """Handles the start of a tag.
-
         Input:
             tagName, attributes of the tag as tuples(key, value)
-
         Output:
             None
-
         Raises:
             None
         """
@@ -89,16 +77,12 @@ class HTMLTagParser(HTMLParser):
                 curr_tag.add_attribute(attribute[0], attribute[1])
             self.images.append(curr_tag)
 
-
     def handle_endtag(self, tag):
         """Handles the end of a tag.
-
         Input:
             tagName
-
         Output:
             None
-
         Raises:
             None
         """
@@ -107,13 +91,10 @@ class HTMLTagParser(HTMLParser):
 
     def handle_data(self, data):
         """Handles the text of a tag.
-
         Input:
             text of tag
-
         Output:
             None
-
         Raises:
             None
         """

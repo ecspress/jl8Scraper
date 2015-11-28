@@ -24,6 +24,9 @@ def fetch_url(url):
     page_request = urllib.request.Request(url, headers=headers)
     try:
         page_response = urllib.request.urlopen(page_request)
+        if page_response.geturl() != url:
+            print("Page redirects to previous entry")
+            return None
     except urllib.error.HTTPError as error:
         print("Unable to access %s: HTTP error code %d", url, error.code)
         return None
@@ -73,21 +76,21 @@ def find_last_image(image_file):
         if len(files) == 0:
             return 0
         else:
+            files = [int(x.split('.')[0].split('_')[0]) for x in files]
             files.sort()
-            last = files[-1].split('.')
-            last = last[0].split('_')
-            last = int(last[0])
-            return last
+            return files[-1]
 
 def main():
     """Runs the current module"""
+    try:
+        image_file = "./jl8_comic.cbr"
+        last_image = find_last_image(image_file)
 
-    image_file = "./jl8_comic.cbr"
-    last_image = find_last_image(image_file)
-
-    site = "http://limbero.org/jl8/"
-    url = urllib.parse.urljoin(site, str(last_image + 1))
-    parse_page(url, image_file)
+        site = "http://limbero.org/jl8/"
+        url = urllib.parse.urljoin(site, str(last_image + 1))
+        parse_page(url, image_file)
+    except KeyboardInterrupt:
+        print("Exit keyboard combo detected: Exiting....")
 
 
 if __name__ == "__main__":
